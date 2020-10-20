@@ -1,10 +1,10 @@
-FROM golang:1.14.0-buster
+FROM golang:1.15.3-buster
 
 WORKDIR /
 
 RUN apt-get update && apt-get install -y libtool unzip wget
 
-ENV PROTOBUF_VER=3.11.2
+ENV PROTOBUF_VER=3.13.0
 RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VER}/protoc-${PROTOBUF_VER}-linux-x86_64.zip \
     && unzip protoc-${PROTOBUF_VER}-linux-x86_64.zip -d protoc \
     && mv ./protoc/bin/protoc /usr/local/bin/ \
