@@ -10,7 +10,7 @@ RUN curl -L -o protoc.tar.gz https://github.com/protocolbuffers/protobuf/release
   && tar xvzf protoc.tar.gz \
   && cd protobuf-${PROTOBUF_VER} \
   && ./autogen.sh \
-  && ./configure \
+  && ./configure --disable-dependency-tracking \
   && make -j 4 \
   && make install
 
