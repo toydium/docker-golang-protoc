@@ -8,7 +8,7 @@ ADD https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERS
 RUN apt-get -q -y update && \
   apt-get -q -y install unzip && \
   unzip protoc-${PROTOC_VERSION}-linux-x86_64.zip -d ./usr/local && \
-  apt-get rm -y unzip
+  apt-get remove -y unzip
 
 ENV GOPROXY=https://proxy.golang.org
 RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go
