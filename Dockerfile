@@ -1,20 +1,15 @@
-FROM golang:1.16.5-alpine
+FROM golang:1.16.5-buster
 
 WORKDIR /
-ENV PROTOBUF_VER=3.14.0
+
+ENV PROTOC_VERSION=3.17.3
+ADD https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip ./
+
+RUN apt-get -q -y update && \
+  apt-get -q -y install unzip && \
+  unzip protoc-${PROTOC_VERSION}-linux-x86_64.zip -d ./usr/local && \
+  apt-get remove -y unzip
+
 ENV GOPROXY=https://proxy.golang.org
-RUN apk update && \
-  apk add --no-cache git build-base autoconf automake libtool tar gzip curl
-
-RUN curl -L -o protoc.tar.gz https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VER}/protobuf-cpp-${PROTOBUF_VER}.tar.gz \
-  && tar xvzf protoc.tar.gz \
-  && cd protobuf-${PROTOBUF_VER} \
-  && ./autogen.sh \
-  && ./configure --disable-dependency-tracking \
-  && make -j 4 \
-  && make install
-
-RUN apk del build-base autoconf automake libtool
-
 RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go
 
