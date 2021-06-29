@@ -11,7 +11,7 @@ RUN apk update && \
 RUN tar xvzf protobuf-cpp-${PROTOBUF_VER}.tar.gz \
   && cd protobuf-${PROTOBUF_VER} \
   && ./autogen.sh \
-  && ./configure \
+  && ./configure --disable-dependency-tracking \
   && make \
   && make install
 
