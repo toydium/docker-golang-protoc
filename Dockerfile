@@ -1,4 +1,4 @@
-FROM golang:1.17.1-bullseye
+FROM golang:1.17.3-bullseye
 
 WORKDIR /
 
@@ -11,5 +11,5 @@ RUN apt-get -q -y update && \
   apt-get remove -y unzip
 
 ENV GOPROXY=https://proxy.golang.org
-RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
